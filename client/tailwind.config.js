@@ -10,8 +10,14 @@ export default {
         "background": "var(--background)",
         "foreground": "var(--foreground)",
         "surface": "var(--surface)",
-        "accent": "var(--accent)",
-        "accent-foreground": "var(--accent-foreground)"
+        "accent": {
+          "DEFAULT": "var(--accent)",
+          "foreground": "var(--accent-foreground)"
+        },
+        "input": {
+          "background": "var(--input-background)",
+          "foreground": "var(--input-foreground)",
+        }
       }
     },
   },
