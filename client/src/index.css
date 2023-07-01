@@ -8,6 +8,8 @@
     --surface: #e1e6e5;
     --accent: #376e45;
     --accent-foreground: #FFFFFF;
+    --input-background: var(--background);
+    --input-foreground: var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -15,5 +17,7 @@
         --background: #262626;
         --foreground: #F9F9F9;
         --surface: #2a2b2b;
+        --input-background: var(--foreground);
+        --input-foreground: var(--background);
     }
 }

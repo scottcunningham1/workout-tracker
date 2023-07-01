@@ -6,7 +6,7 @@ type InputProps = {
 
 const Input = ({ className, ...props }: InputProps) => {
     return (
-        <input {...props} className={clsx("h-12 rounded-xl focus:outline-none focus:outline-accent px-6 disabled:opacity-75", className)} />
+        <input {...props} className={clsx("h-12 rounded-xl bg-input-background text-input-foreground focus:outline-none focus:outline-accent px-6 disabled:opacity-75", className)} />
     );
 };
 
