@@ -13,7 +13,7 @@ export const workoutExercisesByWorkoutInstructionIdSelector = (workoutInstructio
 export const workoutSetsByWorkoutExerciseIdSelector = (workoutExerciseId: string) => (state: WorkoutStoreState) => state.workoutSets.filter(workoutSet => workoutSet.workoutExerciseId === workoutExerciseId);
 export const workoutExerciseByWorkoutExerciseIdSelector = (workoutExerciseId: string) => (state: WorkoutStoreState) => state.workoutExercises.find(workoutExercise => workoutExercise._id === workoutExerciseId);
 
-const useWorkoutStore = create<WorkoutStoreState>((set) => ({
+const useWorkoutStore = create<WorkoutStoreState>(() => ({
     workout: exampleWorkout,
     workoutInstructions: exampleWorkoutInstructions,
     workoutExercises: exampleWorkoutExercises,

@@ -8,7 +8,7 @@ type ExerciseStoreState = {
 
 export const exerciseByIdSelector = (id: string) => (state: ExerciseStoreState) => state.exercises.find(exercise => exercise._id === id);
 
-const useExerciseStore = create<ExerciseStoreState>((set) => ({
+const useExerciseStore = create<ExerciseStoreState>(() => ({
     exercises: exampleExercises
 }));
 

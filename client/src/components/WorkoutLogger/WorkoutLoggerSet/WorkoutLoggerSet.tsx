@@ -15,7 +15,7 @@ const mapMeasurementFieldToValueSuffix: Record<WorkoutMeasurementField, string> 
     "weight": "KG",
 };
 
-const WorkoutLoggerSet = ({ _id, order, measurementValues, workoutExerciseId, workoutId, ...props }: WorkoutSetProps) => {
+const WorkoutLoggerSet = ({ _id, order, measurementValues, workoutExerciseId, workoutId }: WorkoutSetProps) => {
     const workoutExercise = useWorkoutStore(workoutExerciseByWorkoutExerciseIdSelector(workoutExerciseId));
     const workoutLogItem = useWorkoutLogStore(workoutLogItemByWorkoutSetIdSelector(_id));
     const addWorkoutLogItem = useWorkoutLogStore(state => state.addWorkoutLogItem);
