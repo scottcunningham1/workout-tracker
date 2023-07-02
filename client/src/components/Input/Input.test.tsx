@@ -33,4 +33,11 @@ describe("Input", async () => {
         expect(input).toBeDisabled();
     });
 
+    it("Should display a suffix if the suffix prop is provided", async () => {
+        render(<Input disabled data-testid="myInput" suffix="kg" />);
+        const input = screen.queryByTestId("myInput") as HTMLInputElement;
+
+        expect(input.nextSibling).toHaveTextContent("kg");
+    });
+
 });
