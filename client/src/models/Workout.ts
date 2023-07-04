@@ -3,11 +3,21 @@ export type Workout = {
     name: string;
 };
 
-export type WorkoutInstruction = {
+type WorkoutInstructionCore = {
     _id: string;
     workoutId: string;
     order: number;
 }
+
+export type WorkoutInstructionBasic = {
+    type: "basic";
+} & WorkoutInstructionCore;
+
+export type WorkoutInstructionSuperset = {
+    type: "superset";
+} & WorkoutInstructionCore;
+
+export type WorkoutInstruction = WorkoutInstructionBasic | WorkoutInstructionSuperset;
 
 export type WorkoutExercise = {
     _id: string;

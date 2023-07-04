@@ -72,7 +72,7 @@ const WorkoutLoggerSet = ({ _id, order, measurementValues, workoutExerciseId, wo
                     {measurementValues.map((measurementValue, i) =>
                         <div className="flex items-center gap-4" key={`measurementTarget-${_id}-${workoutExercise.measurementFields[i]}`}>
                             {mapMeasurementFieldToLabel[workoutExercise.measurementFields[i]]}
-                            <div className="bg-background py-1 px-2 rounded-sm flex gap-1"><span>{measurementValue}</span>{mapMeasurementFieldToValueSuffix[workoutExercise.measurementFields[i]]}</div>
+                            <div className="bg-background py-1 px-2 rounded-md flex gap-1"><span>{measurementValue}</span>{mapMeasurementFieldToValueSuffix[workoutExercise.measurementFields[i]]}</div>
                         </div>
                     )}
                 </div>
