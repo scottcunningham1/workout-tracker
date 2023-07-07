@@ -49,6 +49,8 @@ export type Category =
     | 'weighted bodyweight'
     | 'assisted bodyweight';
 
+export type ExerciseType = "resistance" | "cardio";
+
 export interface Exercise {
     _id: string;
     name: string;

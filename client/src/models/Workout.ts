@@ -24,17 +24,17 @@ export type WorkoutExercise = {
     workoutId: string;
     workoutInstructionId: string;
     exerciseId: string;
-    measurementFields: [WorkoutMeasurementField, WorkoutMeasurementField];
+    measurementFields: WorkoutMeasurementField[];
     order: number;
 }
 
-export type WorkoutMeasurementField = "reps" | "weight";
+export type WorkoutMeasurementField = "reps" | "weight" | "distance" | "pace" | "time";
 
 export type WorkoutSet = {
     _id: string;
     workoutId: string;
     workoutExerciseId: string;
-    measurementValues: [number, number];
+    measurementValues: number[];
     order: number;
 }
 
@@ -44,4 +44,5 @@ export type WorkoutLogItem = {
     workoutSetId: string;
     reps: number;
     weight: number;
+    complete: boolean;
 }

@@ -71,9 +71,9 @@ export const exampleWorkoutExercises: WorkoutExercise[] = [
         _id: "exer4",
         workoutId: workoutId,
         workoutInstructionId: "inst4",
-        exerciseId: "63fa0c83a6fdea19fc749aae",
+        exerciseId: "63fa0c83a6fdea19fc749aba",
         order: 0,
-        measurementFields: ["reps", "weight"],
+        measurementFields: ["distance", "pace"],
     },
 ];
 
@@ -166,21 +166,7 @@ export const exampleWorkoutSets: WorkoutSet[] = [
         _id: "setD1",
         workoutId: workoutId,
         workoutExerciseId: "exer4",
-        measurementValues: [12, 40],
+        measurementValues: [5, 4],
         order: 0,
-    },
-    {
-        _id: "setD2",
-        workoutId: workoutId,
-        workoutExerciseId: "exer4",
-        measurementValues: [12, 40],
-        order: 1,
-    },
-    {
-        _id: "setD3",
-        workoutId: workoutId,
-        workoutExerciseId: "exer4",
-        measurementValues: [12, 40],
-        order: 2,
     },
 ];
