@@ -1,70 +1,53 @@
-import useWorkoutLogStore, { workoutLogItemByWorkoutSetIdSelector } from "../../../hooks/useWorkoutLogStore";
+import useExerciseStore, { exerciseByIdSelector } from "../../../hooks/useExerciseStore/useExerciseStore";
 import useWorkoutStore, { workoutExerciseByWorkoutExerciseIdSelector } from "../../../hooks/useWorkoutStore/useWorkoutStore";
+import { Category, ExerciseType } from "../../../models/Exercise";
 import { WorkoutMeasurementField, WorkoutSet } from "../../../models/Workout";
-import Input from "../../Input";
+import WorkoutLoggerSetCardioInputs from "./WorkoutLoggerSetCardioInput";
+import WorkoutLoggerSetResistanceInputs from "./WorkoutLoggerSetResistanceInputs";
 
 type WorkoutSetProps = WorkoutSet;
 
 const mapMeasurementFieldToLabel: Record<WorkoutMeasurementField, string> = {
     "reps": "Reps",
     "weight": "Weight",
+    "distance": "Distance",
+    "pace": "Pace",
+    "time": "Time",
 };
 
 const mapMeasurementFieldToValueSuffix: Record<WorkoutMeasurementField, string> = {
     "reps": "",
     "weight": "KG",
+    "distance": "KM",
+    "pace": "min/KM",
+    "time": ""
 };
+
+const exerciseCategoryToTypeMap: Record<Category, ExerciseType> = {
+    "assisted bodyweight": "resistance",
+    "cardio": "cardio",
+    "crossfit": "resistance",
+    "olympic weightlifting": "resistance",
+    "plyometrics": "cardio",
+    "powerlifting": "resistance",
+    "strength": "resistance",
+    "stretching": "cardio",
+    "strongman": "resistance",
+    "weighted bodyweight": "resistance",
+}
 
 const WorkoutLoggerSet = ({ _id, order, measurementValues, workoutExerciseId, workoutId }: WorkoutSetProps) => {
     const workoutExercise = useWorkoutStore(workoutExerciseByWorkoutExerciseIdSelector(workoutExerciseId));
-    const workoutLogItem = useWorkoutLogStore(workoutLogItemByWorkoutSetIdSelector(_id));
-    const addWorkoutLogItem = useWorkoutLogStore(state => state.addWorkoutLogItem);
-    const updateWorkoutLogItem = useWorkoutLogStore(state => state.updateWorkoutLogItem);
+    const exercise = useExerciseStore(exerciseByIdSelector(workoutExercise?.exerciseId ?? ""));
 
-    const handleRepsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(e.currentTarget.value);
-        if (isNaN(value)) return;
+    if (!exercise) return null;
 
-        if (!workoutLogItem) {
-            addWorkoutLogItem({
-                workoutId,
-                workoutExerciseId,
-                workoutSetId: _id,
-                weight: 0,
-                reps: value
-            });
-        } else {
-            updateWorkoutLogItem({
-                ...workoutLogItem,
-                reps: value,
-            });
-        }
-    };
-
-    const handleWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = Number(e.currentTarget.value);
-        if (isNaN(value)) return;
-
-        if (!workoutLogItem) {
-            addWorkoutLogItem({
-                workoutId,
-                workoutExerciseId,
-                workoutSetId: _id,
-                weight: value,
-                reps: 0
-            });
-        } else {
-            updateWorkoutLogItem({
-                ...workoutLogItem,
-                weight: value,
-            });
-        }
-    };
+    const exerciseType = exerciseCategoryToTypeMap[exercise.category];
 
     if (!workoutExercise) return null;
 
     return (
-        <div className="space-y-2 pb-6 border-b border-white/10 mb-4" data-testid="workoutLoggerSet">
+        <div className="relative space-y-2 pb-6 border-b border-white/10 mb-4" data-testid="workoutLoggerSet">
             <div className="font-semibold">Set {order + 1}</div>
             <div>
                 <p className="opacity-80">Target</p>
@@ -77,13 +60,12 @@ const WorkoutLoggerSet = ({ _id, order, measurementValues, workoutExerciseId, wo
                     )}
                 </div>
             </div>
-            <div>
-                <p className="opacity-80 mb-2">Achieved</p>
-                <div className="flex items-center gap-6">
-                    <Input className="text-center" type="text" inputMode="numeric" pattern="[0-9]*" value={workoutLogItem?.reps ?? 0} onChange={handleRepsChange} suffix="reps" data-testid="workoutLoggerSetRepsInput" />
-                    <Input className="text-center" type="text" inputMode="numeric" pattern="[0-9]*" value={workoutLogItem?.weight ?? 0} onChange={handleWeightChange} suffix="kg" data-testid="workoutLoggerSetWeightInput" />
-                </div>
-            </div>
+            {exerciseType === "resistance" &&
+                <WorkoutLoggerSetResistanceInputs workoutId={workoutId} workoutExerciseId={workoutExerciseId} workoutSetId={_id} />
+            }
+            {exerciseType === "cardio" &&
+                <WorkoutLoggerSetCardioInputs workoutId={workoutId} workoutExerciseId={workoutExerciseId} workoutSetId={_id} />
+            }
         </div>
     );
 };
